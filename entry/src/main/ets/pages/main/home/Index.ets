@@ -46,6 +46,7 @@ struct Home {
         CardContent({ tab: 'good' })
       }.tabBar('精品')
     }
+    .layoutWeight(1)
   }
 
   build() {

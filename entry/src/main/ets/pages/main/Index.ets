@@ -1,5 +1,6 @@
 import Home from './home/Index';
 import My from './my/Index';
+
 @Entry
 @Component
 struct Index {
@@ -33,6 +34,7 @@ struct Index {
         My()
       }.tabBar(this.TabBuilder('我的', $r('app.media.my'), $r('app.media.my_active'), 1))
     }
+    .height('100%')
     .scrollable(false)
     .onChange(index => {
       this.currentIndex = index

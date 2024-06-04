@@ -85,17 +85,21 @@ struct CardContent {
     .width('100%')
     .padding(10)
     .backgroundColor('#fff')
-    .margin({ top: 10 })
   }
 
   build() {
-    List() {
-      LazyForEach(this.list, (item: GetTopicsItem) => {
-        ListItem() {
-          this.BuildItem(item)
-        }
-      }, (item: GetTopicsItem) => item.id)
+    Column() {
+      List({ space: 10 }) {
+        LazyForEach(this.list, (item: GetTopicsItem) => {
+          ListItem() {
+            this.BuildItem(item)
+          }
+        }, (item: GetTopicsItem) => item.id)
+      }
     }
+    .width('100%')
+    .height('100%')
+    .padding({ top: 10, bottom: 10 })
     .backgroundColor('#eee')
   }
 
