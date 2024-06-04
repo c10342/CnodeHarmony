@@ -1,11 +1,19 @@
-import axios, { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from '@ohos/axios'
+import axios, { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from '@ohos/axios'
+import promptAction from '@ohos.promptAction';
+
+interface Options {
+  baseURL?: string
+  timeout?: number
+}
 
 class Request {
   private instance: AxiosInstance;
+  private options?: Options;
 
-  constructor() {
+  constructor(options?: Options) {
+    this.options = options
     this.instance = axios.create({
-      baseURL: 'https://cnodejs.org/api/v1'
+      ...(this.options ??{})
     })
     this.initInterceptors()
   }
@@ -16,23 +24,32 @@ class Request {
       return config;
     })
     // 添加响应拦截器
-    axios.interceptors.response.use((response:AxiosResponse)=> {
+    this.instance.interceptors.response.use((response: AxiosResponse) => {
       // 对响应数据做点什么
-      return response;
+      return response.data;
+    }, (error: AxiosError) => {
+      // 对响应错误做点什么
+      promptAction.showToast({
+        message: error.message ?? '请求错误'
+      })
+      return Promise.reject(error);
     });
   }
 
-  get(url: string, params?: Record<string, any>) {
+  get<T = any>(url: string, params?: Record<string, any>): Promise<T> {
     return this.instance.get(url, {
       params
     })
   }
 
-  post(url: string, params?: Record<string, any>) {
+  post<T = any>(url: string, params?: Record<string, any>): Promise<T> {
     return this.instance.post(url, params)
   }
 }
 
-const request = new Request();
+const request = new Request({
+  baseURL: 'https://cnodejs.org/api/v1',
+  timeout: 10 * 1000
+});
 
 export default request

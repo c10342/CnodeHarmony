@@ -1,3 +1,3 @@
 export enum PageUrlEnum {
-  Main = "pages/Main/Index"
+  Main = "pages/main/Index"
 }

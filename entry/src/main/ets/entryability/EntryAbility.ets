@@ -2,6 +2,9 @@ import UIAbility from '@ohos.app.ability.UIAbility';
 import hilog from '@ohos.hilog';
 import window from '@ohos.window';
 import { PageUrlEnum } from '../services/enums';
+import Storage from '../services/storage';
+
+Storage.init();
 
 export default class EntryAbility extends UIAbility {
   onCreate(want, launchParam) {

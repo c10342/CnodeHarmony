@@ -1,19 +1,34 @@
+import { getTopics } from '../../../api';
+import { GetTopicsItem } from '../../../api/types';
+import { CommonDataSource } from '../../../services/lazyForEach';
+import Log from '../../../services/log';
+
+const tabLabelMap = {
+  ask: '问答',
+  share: '分享',
+  job: '工作',
+  good: '精品'
+}
+
 @Component
 struct CardContent {
   @Prop tab: string;
+  // @State list: GetTopicsItem[] = []
 
-  @Builder BuildItem() {
+  private list: CommonDataSource<GetTopicsItem> = new CommonDataSource<GetTopicsItem>()
+
+  @Builder BuildItem(item: GetTopicsItem) {
     Column() {
-      Text('Electron收银台')
+      Text(item.title)
         .fontSize(16)
         .fontWeight(FontWeight.Bold)
         .maxLines(2)
         .textOverflow({ overflow: TextOverflow.Ellipsis })
       Row() {
-        Image($r('app.media.chat'))
+        Image(item.author.avatar_url)
           .width(20)
           .height(20)
-        Text('前端小腹')
+        Text(item.author.loginname)
           .fontSize(12)
           .margin({ left: 10 })
       }
@@ -21,7 +36,7 @@ struct CardContent {
       .width('100%')
       .margin({ top: 4, bottom: 4 })
 
-      Text('掐阿打算打算打算打算大萨达打打分三大发沙发沙发掐阿打算打算打算打算大萨达打打分三大发沙发沙发掐阿打算打算打算打算大萨达打打分三大发沙发沙发')
+      Text(item.content)
         .maxLines(2)
         .fontSize(14)
         .textOverflow({ overflow: TextOverflow.Ellipsis })
@@ -32,7 +47,7 @@ struct CardContent {
             Image($r('app.media.visit'))
               .width(18)
               .height(18)
-            Text('21')
+            Text(`${item.visit_count}`)
               .fontSize(12)
               .margin({ left: 4 })
           }
@@ -42,7 +57,7 @@ struct CardContent {
             Image($r('app.media.reply'))
               .width(18)
               .height(18)
-            Text('11')
+            Text(`${item.reply_count}`)
               .fontSize(12)
               .margin({ left: 4 })
           }
@@ -51,7 +66,7 @@ struct CardContent {
         }
 
         Row() {
-          Text('前端')
+          Text(tabLabelMap[item.tab] ?? '未知')
             .backgroundColor('#e5e5e5')
             .padding({ top: 4, bottom: 4, left: 6, right: 6 })
             .fontColor('#999')
@@ -75,16 +90,35 @@ struct CardContent {
 
   build() {
     List() {
-      ListItem() {
-        this.BuildItem()
-      }
+      LazyForEach(this.list, (item: GetTopicsItem) => {
+        ListItem() {
+          this.BuildItem(item)
+        }
+      }, (item: GetTopicsItem) => item.id)
     }
-    .height('100%')
     .backgroundColor('#eee')
   }
 
+  async getList() {
+    try {
+      const res = await getTopics({
+        page: 1,
+        tab: this.tab,
+        limit: 10,
+        mdrender: false
+      })
+      if (res.success) {
+        res.data.forEach(item => {
+          this.list.pushData(item)
+        })
+      }
+    } catch (e) {
+      Log.error(e)
+    }
+  }
+
   aboutToAppear() {
-    // todo
+    this.getList()
   }
 }
 

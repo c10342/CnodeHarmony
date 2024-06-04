@@ -27,6 +27,10 @@ struct Home {
   @Builder BuilderTab() {
     Tabs() {
       TabContent() {
+        CardContent({ tab: '' })
+      }.tabBar('全部')
+
+      TabContent() {
         CardContent({ tab: 'ask' })
       }.tabBar('问答')
 
