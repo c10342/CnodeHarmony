@@ -1,4 +1,4 @@
-import CardContent from './CardContent'
+import CardList from './CardList'
 
 @Component
 struct Home {
@@ -27,23 +27,23 @@ struct Home {
   @Builder BuilderTab() {
     Tabs() {
       TabContent() {
-        CardContent({ tab: '' })
+        CardList({ tab: '' })
       }.tabBar('全部')
 
       TabContent() {
-        CardContent({ tab: 'ask' })
+        CardList({ tab: 'ask' })
       }.tabBar('问答')
 
       TabContent() {
-        CardContent({ tab: 'share' })
+        CardList({ tab: 'share' })
       }.tabBar('分享')
 
       TabContent() {
-        CardContent({ tab: 'job' })
+        CardList({ tab: 'job' })
       }.tabBar('工作')
 
       TabContent() {
-        CardContent({ tab: 'good' })
+        CardList({ tab: 'good' })
       }.tabBar('精品')
     }
     .layoutWeight(1)
