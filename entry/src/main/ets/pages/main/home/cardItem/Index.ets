@@ -108,10 +108,10 @@ struct CardItem {
         .borderWidth(16)
         .borderStyle(BorderStyle.Solid)
         .borderColor({
-          top: '#80bd01',
+          top: $r('app.color.success_color'),
           left: Color.Transparent,
           bottom: Color.Transparent,
-          right: '#80bd01'
+          right: $r('app.color.success_color')
         })
 
         Text('置顶')

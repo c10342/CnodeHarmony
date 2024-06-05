@@ -7,6 +7,10 @@
     {
       "name": "main_color",
       "value": "#409eff"
+    },
+    {
+      "name": "success_color",
+      "value": "#67c23a"
     }
   ]
 }
