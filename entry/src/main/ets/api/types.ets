@@ -1,6 +1,7 @@
 export interface BaseRespond {
   success: boolean
   data: any
+  error_msg?: string
 }
 
 // 主题列表

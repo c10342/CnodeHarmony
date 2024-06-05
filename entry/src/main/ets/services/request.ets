@@ -26,6 +26,11 @@ class Request {
     // 添加响应拦截器
     this.instance.interceptors.response.use((response: AxiosResponse) => {
       // 对响应数据做点什么
+      if (!response.data?.success) {
+        promptAction.showToast({
+          message: response.data?.error_msg ?? '请求错误'
+        })
+      }
       return response.data;
     }, (error: AxiosError) => {
       // 对响应错误做点什么

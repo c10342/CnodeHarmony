@@ -1,4 +1,5 @@
 import { GetTopicsItem } from '../../../../api/types';
+import BottomSheetDialog from './BottomSheetDialog';
 
 @Observed
 export class CardItemData implements GetTopicsItem {
@@ -45,6 +46,7 @@ const tabLabelMap = {
 @Component
 struct CardItem {
   @ObjectLink item: CardItemData;
+  dialogController: CustomDialogController | null
 
   build() {
     Stack({ alignContent: Alignment.TopEnd }) {
@@ -104,6 +106,9 @@ struct CardItem {
               .width(18)
               .height(18)
               .margin({ left: 16 })
+              .onClick(() => {
+                this.openDialog()
+              })
           }
         }
         .alignItems(VerticalAlign.Center)
@@ -139,6 +144,23 @@ struct CardItem {
 
     }
     .width('100%')
+  }
+
+  // 打开底部弹框
+  openDialog() {
+    this.dialogController?.close();
+    this.dialogController = new CustomDialogController({
+      builder: BottomSheetDialog({
+        item: this.item
+      }),
+      alignment: DialogAlignment.Bottom,
+      customStyle: true
+    })
+    this.dialogController.open()
+  }
+
+  aboutToDisappear() {
+    this.dialogController?.close();
   }
 }
 

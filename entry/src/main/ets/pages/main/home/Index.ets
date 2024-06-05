@@ -5,15 +5,20 @@ struct Home {
   @Builder BuilderHeader() {
     Row() {
       Row() {
+        Image($r('app.media.search'))
+          .width(20)
+          .height(20)
+          .margin({ left: 5 })
         Text('搜索cnode')
           .fontSize(14)
-          .margin({ left: 10 })
+          .margin({ left: 5 })
       }
       .backgroundColor('#eee')
       .borderRadius(4)
       .layoutWeight(1)
       .height(32)
       .margin({ right: 10 })
+      .alignItems(VerticalAlign.Center)
 
       Image($r('app.media.add'))
         .width(26)
