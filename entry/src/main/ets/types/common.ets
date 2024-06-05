@@ -1,5 +1,7 @@
 export interface UserInfo {
-  name: string
+  loginname: string,
+  id: string,
+  avatar_url: string
 }
 
 export type UserInfoData = UserInfo | null

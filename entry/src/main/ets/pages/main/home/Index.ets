@@ -2,7 +2,15 @@ import CardList from './CardList'
 
 @Component
 struct Home {
-  @Builder BuilderHeader() {
+  @Builder
+  MenuBuilder() {
+    Menu() {
+      MenuItem({ startIcon: $r("app.media.add"), content: "发表" })
+    }
+  }
+
+  @Builder
+  BuilderHeader() {
     Row() {
       Row() {
         Image($r('app.media.search'))
@@ -23,13 +31,16 @@ struct Home {
       Image($r('app.media.add'))
         .width(26)
         .height(26)
+        .bindMenu(this.MenuBuilder)
+
     }
     .width('100%')
     .padding(10)
     .alignItems(VerticalAlign.Center)
   }
   // ask share job good
-  @Builder BuilderTab() {
+  @Builder
+  BuilderTab() {
     Tabs() {
       TabContent() {
         CardList({ tab: '' })

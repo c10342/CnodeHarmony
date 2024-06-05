@@ -1,39 +1,7 @@
 import { GetTopicsItem } from '../../../../api/types';
 import BottomSheetDialog from './BottomSheetDialog';
-
-// @Observed
-// export class CardItemData implements GetTopicsItem {
-//   "id": string
-//   "author_id": string
-//   "tab": string
-//   "content": string
-//   "title": string
-//   "last_reply_at": string
-//   "good": boolean
-//   "top": boolean
-//   "reply_count": number
-//   "visit_count": number
-//   "create_at": string
-//   "author": {
-//     "loginname": string,
-//     "avatar_url": string
-//   }
-//
-//   constructor(data: GetTopicsItem) {
-//     this.id = data.id
-//     this.author_id = data.author_id
-//     this.tab = data.tab
-//     this.content = data.content
-//     this.title = data.title
-//     this.last_reply_at = data.last_reply_at
-//     this.good = data.good
-//     this.top = data.top
-//     this.reply_count = data.reply_count
-//     this.visit_count = data.visit_count
-//     this.create_at = data.create_at
-//     this.author = data.author
-//   }
-// }
+import dayjs from 'dayjs'
+import { YYYYMMDDHHMM } from '../../../../services/const';
 
 const tabLabelMap = {
   ask: '问答',
@@ -57,16 +25,27 @@ struct CardItem {
           .maxLines(2)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
         Row() {
-          Image(this.item.author.avatar_url)
-            .width(20)
-            .height(20)
-          Text(this.item.author.loginname)
-            .fontSize(12)
-            .margin({ left: 10 })
+          Row() {
+            Image(this.item.author.avatar_url)
+              .width(20)
+              .height(20)
+            Text(this.item.author.loginname)
+              .fontSize(12)
+              .margin({ left: 10 })
+              .layoutWeight(1)
+              .maxLines(1)
+              .textOverflow({ overflow: TextOverflow.Ellipsis })
+          }
+          .justifyContent(FlexAlign.Start)
+          .layoutWeight(1)
+          .padding({ right: 10 })
+
+          Text(`发表于：${dayjs(this.item.create_at).format(YYYYMMDDHHMM)}`).fontSize(12)
         }
-        .justifyContent(FlexAlign.Start)
-        .width('100%')
         .margin({ top: 4, bottom: 4 })
+        .width('100%')
+        .justifyContent(FlexAlign.SpaceBetween)
+
 
         Text(this.item.content)
           .maxLines(2)
