@@ -1,39 +1,39 @@
 import { GetTopicsItem } from '../../../../api/types';
 import BottomSheetDialog from './BottomSheetDialog';
 
-@Observed
-export class CardItemData implements GetTopicsItem {
-  "id": string
-  "author_id": string
-  "tab": string
-  "content": string
-  "title": string
-  "last_reply_at": string
-  "good": boolean
-  "top": boolean
-  "reply_count": number
-  "visit_count": number
-  "create_at": string
-  "author": {
-    "loginname": string,
-    "avatar_url": string
-  }
-
-  constructor(data: GetTopicsItem) {
-    this.id = data.id
-    this.author_id = data.author_id
-    this.tab = data.tab
-    this.content = data.content
-    this.title = data.title
-    this.last_reply_at = data.last_reply_at
-    this.good = data.good
-    this.top = data.top
-    this.reply_count = data.reply_count
-    this.visit_count = data.visit_count
-    this.create_at = data.create_at
-    this.author = data.author
-  }
-}
+// @Observed
+// export class CardItemData implements GetTopicsItem {
+//   "id": string
+//   "author_id": string
+//   "tab": string
+//   "content": string
+//   "title": string
+//   "last_reply_at": string
+//   "good": boolean
+//   "top": boolean
+//   "reply_count": number
+//   "visit_count": number
+//   "create_at": string
+//   "author": {
+//     "loginname": string,
+//     "avatar_url": string
+//   }
+//
+//   constructor(data: GetTopicsItem) {
+//     this.id = data.id
+//     this.author_id = data.author_id
+//     this.tab = data.tab
+//     this.content = data.content
+//     this.title = data.title
+//     this.last_reply_at = data.last_reply_at
+//     this.good = data.good
+//     this.top = data.top
+//     this.reply_count = data.reply_count
+//     this.visit_count = data.visit_count
+//     this.create_at = data.create_at
+//     this.author = data.author
+//   }
+// }
 
 const tabLabelMap = {
   ask: '问答',
@@ -45,7 +45,7 @@ const tabLabelMap = {
 
 @Component
 struct CardItem {
-  @ObjectLink item: CardItemData;
+  @State item: GetTopicsItem = null;
   dialogController: CustomDialogController | null
 
   build() {

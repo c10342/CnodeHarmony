@@ -1,22 +1,34 @@
 import { getTopics } from '../../../api';
 import { CommonDataSource } from '../../../services/lazyForEach';
 import Log from '../../../services/log';
-import CardItem, { CardItemData } from './cardItem/Index';
+import CardItem from './cardItem/Index';
+import { GetTopicsItem } from '../../../api/types';
+import BaseEmpty from '../../../components/BaseEmpty';
 
 
 @Component
 struct CardList {
   @Prop tab: string;
-  private list: CommonDataSource<CardItemData> = new CommonDataSource<CardItemData>()
+  @State list: CommonDataSource<GetTopicsItem> = new CommonDataSource<GetTopicsItem>()
+  @State isEmpty: boolean = false
+  @State loading: boolean = false
 
   build() {
     Column() {
-      List({ space: 10 }) {
-        LazyForEach(this.list, (item: CardItemData) => {
-          ListItem() {
-            CardItem({ item: item })
-          }
-        }, (item: CardItemData) => item.id)
+      if (this.loading) {
+        LoadingProgress()
+          .color(Color.Blue)
+          .size({ width: 200, height: 200 })
+      } else if (this.isEmpty) {
+        BaseEmpty()
+      } else {
+        List({ space: 10 }) {
+          LazyForEach(this.list, (item: GetTopicsItem) => {
+            ListItem() {
+              CardItem({ item: item })
+            }
+          }, (item: GetTopicsItem) => item.id)
+        }
       }
     }
     .width('100%')
@@ -27,6 +39,7 @@ struct CardList {
 
   async getList() {
     try {
+      this.loading = true
       const res = await getTopics({
         page: 1,
         tab: this.tab,
@@ -34,12 +47,15 @@ struct CardList {
         mdrender: false
       })
       if (res.success) {
+        this.isEmpty = !res.data.length
         res.data.forEach(item => {
-          this.list.pushData(new CardItemData(item))
+          this.list.pushData(item)
         })
       }
     } catch (e) {
       Log.error(e)
+    } finally {
+      this.loading = false
     }
   }
 

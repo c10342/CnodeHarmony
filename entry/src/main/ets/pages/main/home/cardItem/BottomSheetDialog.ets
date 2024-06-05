@@ -1,5 +1,5 @@
-import { CardItemData } from './Index';
 
+import { GetTopicsItem } from '../../../../api/types';
 interface ItemData {
   label: string,
   imageUrl: string | PixelMap | Resource
@@ -7,7 +7,7 @@ interface ItemData {
 
 @CustomDialog
 struct BottomSheetDialog {
-  item: CardItemData | null;
+  item: GetTopicsItem;
   controller: CustomDialogController
   @State list: Array<ItemData> = []
 
