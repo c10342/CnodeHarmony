@@ -8,11 +8,6 @@ interface ListItem {
   action?: () => any
 }
 
-// const list: ListItem[] = [
-//   { label: '关于', imageUrl: $r('app.media.about') },
-//   { label: '退出登录', imageUrl: $r('app.media.logout') }
-// ]
-
 @Preview
 @Component
 struct My {
@@ -24,6 +19,7 @@ struct My {
         Image(item.imageUrl)
           .width(20)
           .height(20)
+          .borderRadius(10)
         Text(item.label)
           .fontSize(16)
           .fontColor(Color.Black)

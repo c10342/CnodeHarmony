@@ -3,7 +3,7 @@ import My from './my/Index';
 
 @Entry
 @Component
-struct Index {
+struct Main {
   @State currentIndex: number = 0;
 
   @Builder TabBuilder(label: string, url: string | PixelMap | Resource, activeUrl: string | PixelMap | Resource, index: number) {

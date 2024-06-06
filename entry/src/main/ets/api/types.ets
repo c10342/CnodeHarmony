@@ -37,3 +37,9 @@ export interface GetTopicsItem {
 export interface GetTopicsRespond extends BaseRespond {
   data: GetTopicsItem[]
 }
+
+export  interface LoginRespond extends BaseRespond{
+  loginname: string,
+  id: string,
+  avatar_url: string
+}

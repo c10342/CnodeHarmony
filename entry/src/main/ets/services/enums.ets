@@ -1,4 +1,5 @@
 export enum PageUrlEnum {
-  Main = "pages/main/Index",
-  Login = "pages/login/Login"
+  Main = "pages/main/Main",
+  Login = "pages/login/Login",
+  Welcome = "pages/welcome/Welcome"
 }

@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from '@ohos/axios'
-import promptAction from '@ohos.promptAction';
+import { GlobalUI } from './ui';
 
 interface Options {
   baseURL?: string
@@ -27,16 +27,13 @@ class Request {
     this.instance.interceptors.response.use((response: AxiosResponse) => {
       // 对响应数据做点什么
       if (!response.data?.success) {
-        promptAction.showToast({
-          message: response.data?.error_msg ?? '请求错误'
-        })
+        GlobalUI.showToast(response.data?.error_msg ?? '请求错误')
+
       }
       return response.data;
     }, (error: AxiosError) => {
       // 对响应错误做点什么
-      promptAction.showToast({
-        message: error.message ?? '请求错误'
-      })
+      GlobalUI.showToast(error.message ?? '请求错误')
       return Promise.reject(error);
     });
   }
