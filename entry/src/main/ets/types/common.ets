@@ -4,4 +4,4 @@ export interface UserInfo {
   avatar_url: string
 }
 
-export type UserInfoData = UserInfo | null
+export type UserInfoData = UserInfo | ''

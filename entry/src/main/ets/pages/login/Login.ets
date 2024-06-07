@@ -1,5 +1,6 @@
 import router from '@ohos.router'
 import { login } from '../../api'
+import BaseBar from '../../components/BaseBar'
 import Storage from '../../services/storage'
 import { GlobalUI } from '../../services/ui'
 
@@ -11,6 +12,7 @@ struct Login {
 
   build() {
     Column() {
+      BaseBar({ title: '登录' })
       Column() {
         Image($r('app.media.cnodejs_light'))
           .width('100%')

@@ -1,6 +1,7 @@
 import { UserInfoData } from '../../../types/common'
 import router from '@ohos.router'
 import { PageUrlEnum } from '../../../services/enums'
+import Storage from '../../../services/storage'
 
 interface ListItem {
   label: string
@@ -11,7 +12,7 @@ interface ListItem {
 @Preview
 @Component
 struct My {
-  @StorageLink('userInfo') userInfo: UserInfoData = null
+  @StorageLink('userInfo') userInfo: UserInfoData = ''
 
   @Builder ItemBuilder(item: ListItem) {
     Row() {
@@ -19,7 +20,6 @@ struct My {
         Image(item.imageUrl)
           .width(20)
           .height(20)
-          .borderRadius(10)
         Text(item.label)
           .fontSize(16)
           .fontColor(Color.Black)
@@ -51,8 +51,9 @@ struct My {
         Image(this.userInfo ? this.userInfo.avatar_url : $r('app.media.avator'))
           .width(60)
           .height(60)
+          .borderRadius(30)
         if (this.userInfo) {
-          Text(this.userInfo.loginname)
+          Text(this.userInfo?.loginname)
             .fontColor(Color.White)
             .fontSize(20)
             .margin({ top: 20 })
@@ -79,7 +80,11 @@ struct My {
 
         if (this.userInfo) {
           ListItem() {
-            this.ItemBuilder({ label: '退出登录', imageUrl: $r('app.media.logout') })
+            this.ItemBuilder({
+              label: '退出登录',
+              imageUrl: $r('app.media.logout'),
+              action: this.onLogout.bind(this)
+            })
           }
         } else {
           ListItem() {
@@ -100,6 +105,11 @@ struct My {
     router.pushUrl({
       url: PageUrlEnum.Login
     })
+  }
+
+  onLogout() {
+    Storage.setToken('')
+    Storage.setUserInfo('')
   }
 }
 

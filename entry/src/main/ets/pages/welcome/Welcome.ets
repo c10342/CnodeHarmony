@@ -35,7 +35,7 @@ struct Welcome {
         })
       }
     }
-    router.pushUrl({
+    router.replaceUrl({
       url: PageUrlEnum.Main
     })
   }
