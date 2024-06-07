@@ -2,6 +2,9 @@ import { GetTopicsItem } from '../../../../api/types';
 import BottomSheetDialog from './BottomSheetDialog';
 import dayjs from 'dayjs'
 import { YYYYMMDDHHMM } from '../../../../services/const';
+import Log from '../../../../services/log';
+import router from '@ohos.router';
+import { PageUrlEnum } from '../../../../services/enums';
 
 const tabLabelMap = {
   ask: '问答',
@@ -123,6 +126,14 @@ struct CardItem {
 
     }
     .width('100%')
+    .onClick(() => {
+      router.pushUrl({
+        url: PageUrlEnum.ArticleDetail,
+        params: {
+          id: this.item.id
+        }
+      })
+    })
   }
 
   // 打开底部弹框

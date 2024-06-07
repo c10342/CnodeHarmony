@@ -4,6 +4,7 @@ import Log from '../../../services/log';
 import CardItem from './cardItem/Index';
 import { GetTopicsItem } from '../../../api/types';
 import BaseEmpty from '../../../components/BaseEmpty';
+import BaseLoading from '../../../components/BaseLoading';
 
 
 @Component
@@ -16,9 +17,7 @@ struct CardList {
   build() {
     Column() {
       if (this.loading) {
-        LoadingProgress()
-          .color(Color.Blue)
-          .size({ width: 200, height: 200 })
+        BaseLoading()
       } else if (this.isEmpty) {
         BaseEmpty()
       } else {

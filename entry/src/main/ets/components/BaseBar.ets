@@ -2,7 +2,7 @@ import router from '@ohos.router'
 
 @Component
 struct BaseBar {
-  @Prop title:string;
+  @Prop title: string;
   // 是否需要返回按钮
   @State hasBackBtn: boolean = false
 
@@ -28,6 +28,10 @@ struct BaseBar {
     }
     .width('100%')
     .height(50)
+    .shadow({
+      radius: 5,
+      color: '#ccc'
+    })
   }
 
   aboutToAppear() {
