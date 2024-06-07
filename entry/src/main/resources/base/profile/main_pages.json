@@ -2,6 +2,7 @@
   "src": [
     "pages/main/Main",
     "pages/login/Login",
-    "pages/welcome/Welcome"
+    "pages/welcome/Welcome",
+    "pages/articleDetail/ArticleDetail"
   ]
 }
